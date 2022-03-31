@@ -10,6 +10,7 @@
   --side-small: 26;
   --size-big: 36;
   --depth: 300vh;
+  --transition: 0.75s cubic-bezier(0.075, 0.5, 0, 1)
 }
 
 @font-face {
@@ -52,6 +53,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity .75s ease;
+  transition: var(--transition), opacity .75s ease;
   will-change: transform;
+  transform-style: preserve-3d;
 }
