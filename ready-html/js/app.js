@@ -2,7 +2,7 @@
 
 let zSpacing = -1000
 let lastPos = zSpacing / 5
-const speed = -4
+const speed = -3
 const frames = Array.from(document.getElementsByClassName('frame'))
 const frameLength = frames.length
 let zVals = []
