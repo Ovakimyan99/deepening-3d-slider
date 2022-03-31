@@ -10,3 +10,23 @@
   --side-small: 26;
   --size-big: 36;
 }
+
+@font-face {
+  font-family: raleway_c;
+  src: url('../fonts/raleway-v22-cyrillic-100.woff2');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: raleway_c;
+  src: url('../fonts/raleway-v22-cyrillic-300.woff2');
+  font-weight: 300;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-size: calc(var(--index) * 0.8);
+  font-family: raleway_c, sans-serif;
+  line-height: 1.75;
+}
