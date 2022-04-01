@@ -42,6 +42,8 @@ h1, h2, h3, h4 {
 .frame h2 {
   text-align: center;
   font-size: calc(var(--index) * 3.3);
+  width: min-content;
+  line-height: 1;
 }
 
 .container {
@@ -89,3 +91,17 @@ h1, h2, h3, h4 {
 .frame-media_right {
   left: calc(var(--index) / 2 * var(--side-small) + var(--gutter));
 }
+
+video.frame-media {
+  width: calc(var(--index) * var(--side-big));
+  height: calc(var(--index) * var(--side-small));
+}
+
+video.frame-media_left {
+  right: calc(var(--index) / 2 * var(--side-big) + var(--gutter));
+}
+
+video.frame-media_right {
+  left: calc(var(--index) / 2 * var(--side-big) + var(--gutter));
+}
+
