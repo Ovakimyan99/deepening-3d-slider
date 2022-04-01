@@ -1,11 +1,13 @@
 'use strict';
 
-let zSpacing = -1000
+let zSpacing = -1500
 let lastPos = zSpacing / 5
 const speed = -3
 const frames = Array.from(document.getElementsByClassName('frame'))
 const frameLength = frames.length
 let zVals = []
+
+const $dom = document.documentElement
 
 frames.forEach((_, index) => {
   zVals.push(index * zSpacing + zSpacing)
@@ -21,7 +23,7 @@ window.onscroll = () => {
     zVals[index] += delta * speed
 
     const transform = `translateZ(${zVals[index]}px)`
-    const opacity = zVals[index] < Math.abs(zSpacing) / 1.4 ? 1 : 0
+    const opacity = zVals[index] < Math.abs(zSpacing) / 1.6 ? 1 : 0
  
     frame
       .setAttribute(
