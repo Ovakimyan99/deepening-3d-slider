@@ -1,6 +1,6 @@
 'use strict';
 
-let zSpacing = -1500
+let zSpacing = -1000
 let lastPos = zSpacing / 5
 const speed = -3
 const frames = Array.from(document.getElementsByClassName('frame'))
