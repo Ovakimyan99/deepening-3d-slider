@@ -1,5 +1,2 @@
-*.mp4
-*.cube
-*.prproj
-*.aup3
-*.mp3
+.idea
+node_modules 
