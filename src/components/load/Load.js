@@ -8,7 +8,7 @@ export class Load {
         image.loading = () => resolve(image)
         image.src = src
       } catch (error) {
-        reject(`Ваш файл не получилось загрузить: ${err}`)
+        reject(`Ваш файл не получилось загрузить: ${error}`)
       }
     })
   }
@@ -18,7 +18,9 @@ export class Load {
       try {
         const video = document.createElement('video')
         for (const option in options) {
-          video.setAttribute(option, options[option])
+          if (Object.prototype.hasOwnProperty.call(options, option)) {
+            video.setAttribute(option, options[option])
+          }
         }
         video.onload = () => resolve(video)
       } catch (error) {

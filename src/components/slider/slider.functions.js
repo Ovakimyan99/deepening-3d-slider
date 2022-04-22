@@ -1,12 +1,12 @@
 // 3D scroll
-let zSpacing = -1000
+const zSpacing = -1000
 let lastPos = zSpacing / 5
 const speed = -3
 const frames = Array.from(document.getElementsByClassName('frame'))
-const frameLength = frames.length
-let zVals = []
+// const frameLength = frames.length
+const zVals = []
 
-const $dom = document.documentElement
+// const $dom = document.documentElement
 
 frames.forEach((_, index) => {
   zVals.push(index * zSpacing + zSpacing)
@@ -23,13 +23,13 @@ window.onscroll = () => {
 
     const transform = `translateZ(${zVals[index]}px)`
     const opacity = zVals[index] < Math.abs(zSpacing) / 1.6 ? 1 : 0
- 
+
     frame
-      .setAttribute(
-        'style',
-        `transform: ${transform};
+        .setAttribute(
+            'style',
+            `transform: ${transform};
         opacity: ${opacity}`
-      )
+        )
   })
 }
 

@@ -4,12 +4,11 @@ const CopyPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
-const { dirname } = require('path')
 
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-const filename = ext => isProd ? `build.[hash].${ext}` : `build.${ext}`
+const filename = ext => isProd ? `build.[contenthash].${ext}` : `build.${ext}`
 
 const jsLoaders = () => {
   const loaders = [
@@ -37,13 +36,15 @@ module.exports = {
   entry: ['@babel/polyfill', './index.js'],
   output: {
     filename: filename('js'),
-    path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'images/[hash][ext][query]'
+    path: path.resolve(__dirname, 'dist')
   },
   resolve: {
     extensions: ['.js'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@fonts': path.resolve(__dirname, 'src/assets/fonts'),
+      '@images': path.resolve(__dirname, 'src/assets/images'),
+      '@media': path.resolve(__dirname, 'src/assets/media'),
       '@core': path.resolve(__dirname, 'src/core')
     }
   },
@@ -62,8 +63,8 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/favicon.ico'),
           to: path.resolve(__dirname, 'dist')
-        },
-      ],
+        }
+      ]
     }),
     new MiniCssExtractPlugin({
       filename: filename('css')
