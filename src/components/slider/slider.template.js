@@ -4,13 +4,14 @@ import {
 } from '@core/utils'
 import { Z_SPACING_SLIDES } from '@/constants'
 
-function toText({ spacingSummary }) {
+function createFrame(content, { spacingSummary }) {
   const transformZ = spacingSummary * Z_SPACING_SLIDES
 
   const styles =
     stylesToString({
       transform: `translateZ(${transformZ}px)`
     })
+
   return `
     <div
       class="frame"
@@ -18,25 +19,27 @@ function toText({ spacingSummary }) {
       data-zspace="${transformZ}"
     >
       <div class="frame__content">
-        <h2>beautiful world</h2>
+        ${content}
       </div>
     </div>
   `
 }
 
+function toText(html) {
+  return `
+    <h2>beautiful world</h2>
+  `
+}
+
 function toVideo({ options }) {
   return `
-    <div class="frame">
-      <div class="frame__content">
-        <video
-          class="frame-media frame-media_right"
-          src="/media/video_optimized.mp4"
-          autoplay
-          loop
-          muted
-        ></video>
-      </div>
-    </div>
+    <video
+      class="frame-media frame-media_right"
+      src="/media/video_optimized.mp4"
+      autoplay
+      loop
+      muted
+    ></video>
   `
 }
 
@@ -46,47 +49,49 @@ function toMusic({ options }) {
 
 function toImage({ options }) {
   return `
-    <div class="frame frame-bg">
-      <div class="frame__content">
-        <div
-          class="frame-media frame-media_right"
-          style="background-image: url(/images/5.jpg);"
-        ></div>
-      </div>
-    </div>
+    <div
+      class="frame-media frame-media_right"
+      style="background-image: url(/images/5.jpg);"
+    ></div>
   `
 }
 
-function createTemplate(slide, index, array) {
-  debugger
-  const { file } = slide.data
-  const type = defineContentType(file)
+function createTemplate(createFrame) {
+  return function(slide, index, array) {
+    const { file, options } = slide.data
+    const type = defineContentType(file)
 
-  let spacingSummary = 0
-  for (let i = 0; i <= index; i++) {
-    spacingSummary += array[i].data.zSpacing
-  }
+    let spacingSummary = 0
+    for (let i = 0; i <= index; i++) {
+      spacingSummary += array[i].data.zSpacing
+    }
 
-  const options = {
-    ...slide,
-    index,
-    spacingSummary
-  }
 
-  switch (type) {
-    case 'string':
-      return toText(options)
-    case 'audio':
-      return toMusic(options)
-    case 'video':
-      return toVideo(options)
-    case 'image':
-      return toImage(options)
+    let template
+    switch (type) {
+      case 'string':
+        template = toText('html')
+        break
+      case 'audio':
+        template = toMusic({ options })
+        break
+      case 'video':
+        template = toVideo({ options })
+        break
+      case 'image':
+        template = toImage({ options })
+        break
+      default:
+        template = toText({})
+        break
+    }
+
+    return createFrame(template, {spacingSummary})
   }
 }
 
 export function sliderTemplate(arrayWithSlideOptions = []) {
   return arrayWithSlideOptions
-      .map(createTemplate)
+      .map(createTemplate(createFrame))
       .join('')
 }
