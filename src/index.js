@@ -76,27 +76,3 @@ container.append(
 app.append(container)
 
 slider.init()
-
-/*
-192 ms  Scripting
-233 ms  Rendering
-44 ms  Painting
-*/
-
-/*
-862 ms  Scripting
-457 ms  Rendering
-65 ms  Painting
-*/
-
-/*
-1027 ms  Scripting
-575 ms  Rendering
-72 ms  Painting
-*/
-
-/*
-207 ms  Scripting
-403 ms  Rendering
-82 ms  Painting - абсолютная оптимизация
-*/
