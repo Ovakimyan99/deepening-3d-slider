@@ -43,6 +43,23 @@ export function debounce(callback, wait) {
   }
 }
 
+export function throttle(func, ms) {
+  let locked = false
+
+  return function(...args) {
+    if (locked) return
+
+    locked = true
+
+    const interval = setTimeout(() => {
+      // eslint-disable-next-line no-invalid-this
+      func.apply(this, args)
+      locked = false
+      clearInterval(interval)
+    }, ms)
+  }
+}
+
 export function sliderHidingFactor(zSpacing) {
   return zSpacing > Math.abs(Z_SPACING_SLIDES) / 1.6 ?
   false :

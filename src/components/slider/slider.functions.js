@@ -36,6 +36,8 @@ export function sliderMovevent(frames, options = {}) {
     )
   }
 
+  console.log(activeIndex)
+
   // определяем активный слайд - текущий
   for (let index = 0; index < frames.length; index++) {
     const frameSpacing = +frames[index].getAttribute('data-zspace')

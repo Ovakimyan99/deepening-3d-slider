@@ -94,3 +94,9 @@ slider.init()
 575 ms  Rendering
 72 ms  Painting
 */
+
+/*
+207 ms  Scripting
+403 ms  Rendering
+82 ms  Painting - абсолютная оптимизация
+*/

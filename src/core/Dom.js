@@ -6,12 +6,12 @@ class Dom {
   }
 
   find(selector) {
-    const $el = this.$root.querySelector(selector)
+    const $el = this.$el.querySelector(selector)
     return $el ? $($el) : null
   }
 
   findAll(selector) {
-    return this.$root.querySelectorAll(selector)
+    return this.$el.querySelectorAll(selector)
   }
 
   html(str) {
