@@ -1,3 +1,5 @@
+import { Z_SPACING_SLIDES } from '@/constants'
+
 export function defineContentType(content) {
   if (typeof content === 'string') {
     return 'string'
@@ -25,4 +27,24 @@ export function stylesToString(stylesObject) {
   return Object.keys(stylesObject)
       .map(key => `${camelToDachCase(key)}: ${stylesObject[key]}`)
       .join(';')
+}
+
+export function debounce(callback, wait) {
+  let timeout
+
+  return function(...args) {
+    const later = () => {
+      clearInterval(timeout)
+      // eslint-disable-next-line no-invalid-this
+      callback.apply(this, args)
+    }
+    clearInterval(timeout)
+    timeout = setInterval(later, wait)
+  }
+}
+
+export function sliderHidingFactor(zSpacing) {
+  return zSpacing > Math.abs(Z_SPACING_SLIDES) / 1.6 ?
+  false :
+  true
 }

@@ -17,6 +17,7 @@ function createFrame(content, { spacingSummary }) {
       class="frame"
       style="${styles}"
       data-zspace="${transformZ}"
+      data-frame
     >
       <div class="frame__content">
         ${content}

@@ -1,36 +1,49 @@
-// 3D scroll
-const zSpacing = -1000
-let lastPos = zSpacing / 5
-const speed = -3
-const frames = Array.from(document.getElementsByClassName('frame'))
-// const frameLength = frames.length
-const zVals = []
+import { sliderHidingFactor } from '@core/utils'
+const scrollTop = () => Math.floor(document.documentElement.scrollTop)
 
-// const $dom = document.documentElement
+let lastPos = scrollTop()
+let activeIndex = 0
 
-frames.forEach((_, index) => {
-  zVals.push(index * zSpacing + zSpacing)
-})
-
-window.onscroll = () => {
-  const top = Math.floor(document.documentElement.scrollTop)
+export function sliderMovevent(frames, options = {}) {
+  const { speed = -2, confines = 5 } = options
+  const top = scrollTop()
   const delta = lastPos - top
 
   lastPos = top
 
-  frames.forEach((frame, index) => {
-    zVals[index] += delta * speed
+  // настраиваем отображаемые слайды с актуальными значениями
+  for (let index = 0; index < frames.length; index++) {
+    const frame = frames[index]
 
-    const transform = `translateZ(${zVals[index]}px)`
-    const opacity = zVals[index] < Math.abs(zSpacing) / 1.6 ? 1 : 0
+    frame.setAttribute('data-zspace',
+        +frame.getAttribute('data-zspace') + delta * speed
+    )
 
-    frame
-        .setAttribute(
-            'style',
-            `transform: ${transform};
-        opacity: ${opacity}`
-        )
-  })
+    const frameSpacing = +frame.getAttribute('data-zspace')
+
+    const translateZ = `translateZ(${frameSpacing}px)`
+    const opacity = sliderHidingFactor(frameSpacing) ? 1 : 0
+
+    const display =
+        index >= activeIndex - 1 &&
+        index <= activeIndex + confines - 2
+        ?
+        'flex' :
+        'none'
+
+    frame.setAttribute('style',
+        `transform: ${translateZ};opacity: ${opacity};display: ${display};`
+    )
+  }
+
+  // определяем активный слайд - текущий
+  for (let index = 0; index < frames.length; index++) {
+    const frameSpacing = +frames[index].getAttribute('data-zspace')
+
+    if (sliderHidingFactor(frameSpacing)) {
+      activeIndex = index
+      // console.log('activeIndex: ', activeIndex)
+      return
+    }
+  }
 }
-
-window.scrollTo(0, 1)

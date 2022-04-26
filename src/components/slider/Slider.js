@@ -1,31 +1,26 @@
+import { $ } from '@core/Dom'
 import { sliderTemplate } from '@/components/slider/slider.template.js'
+import { sliderMovevent } from '@/components/slider/slider.functions.js'
 
 export class Slider {
-  constructor(selector, options) {
-    this.selector = selector
-    // this.files = options.files
+  constructor(options) {
+    this.frames = []
+    this.slidersData = options.slidersData || []
+  }
+
+  toHTML() {
+    return sliderTemplate(this.slidersData)
   }
 
   getRoot() {
-    return sliderTemplate([
-      {
-        data: {
-          file: 'text',
-          zSpacing: 1
-        }
-      },
-      {
-        data: {
-          file: 'video',
-          zSpacing: 3
-        }
-      },
-      {
-        data: {
-          file: 'audio',
-          zSpacing: 1
-        }
-      }
-    ])
+    const $root = $.create('div', 'gallery')
+    $root.html(this.toHTML())
+
+    return $root
+  }
+
+  init() {
+    this.frames = Array.from(document.querySelectorAll('[data-frame]'))
+    window.addEventListener('scroll', () => sliderMovevent(this.frames))
   }
 }
