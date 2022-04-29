@@ -12,35 +12,29 @@ export function sliderMovevent(frames, options = {}) {
   lastPos = top
 
   // настраиваем отображаемые слайды с актуальными значениями
-  for (let index = 0; index < frames.length; index++) {
+  for (let index = 0, length = frames.length; index < length; index++) {
     const frame = frames[index]
 
-    frame.setAttribute('data-zspace',
-        +frame.getAttribute('data-zspace') + delta * speed
+    frame.attr('data-zspace',
+        +frame.attr('data-zspace') + delta * speed
     )
 
-    const frameSpacing = +frame.getAttribute('data-zspace')
+    const frameSpacing = +frame.attr('data-zspace')
 
-    const translateZ = `translateZ(${frameSpacing}px)`
-    const opacity = sliderHidingFactor(frameSpacing) ? 1 : 0
-
-    const display =
-        index >= activeIndex - 1 &&
-        index <= activeIndex + confines - 2
-        ?
-        'flex' :
-        'none'
-
-    frame.setAttribute('style',
-        `transform: ${translateZ};opacity: ${opacity};display: ${display};`
-    )
+    frame.css({
+      transform: `translateZ(${frameSpacing}px)`,
+      opacity: sliderHidingFactor(frameSpacing) ? 1 : 0,
+      display: index >= activeIndex - 1 &&
+      index <= activeIndex + confines - 2
+          ?
+          'flex' :
+          'none'
+    })
   }
 
-  console.log(activeIndex)
-
   // определяем активный слайд - текущий
-  for (let index = 0; index < frames.length; index++) {
-    const frameSpacing = +frames[index].getAttribute('data-zspace')
+  for (let index = 0, length = frames.length; index < length; index++) {
+    const frameSpacing = +frames[index].attr('data-zspace')
 
     if (sliderHidingFactor(frameSpacing)) {
       activeIndex = index

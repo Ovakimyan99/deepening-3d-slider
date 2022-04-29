@@ -51,11 +51,10 @@ export function throttle(func, ms) {
 
     locked = true
 
-    const interval = setTimeout(() => {
+    setTimeout(() => {
       // eslint-disable-next-line no-invalid-this
       func.apply(this, args)
       locked = false
-      clearInterval(interval)
     }, ms)
   }
 }

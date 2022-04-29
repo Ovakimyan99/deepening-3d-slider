@@ -6,61 +6,92 @@ const slidersData = [
   {
     data: {
       file: 'text',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
+      background: 'rgba(0, 0, 0, 0.87)',
+      position: 'text-right'
     }
   },
   {
     data: {
       file: 'video',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
+      background: 'rgba(0, 0, 0, 0.87)',
+      position: 'text-left'
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 2
+      zSpacing: 2,
+    },
+    styles: {
+      background: 'rgba(0, 0, 0, 0.87)',
+      position: 'text-left'
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
+      position: 'text-right'
+
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 3
+      zSpacing: 3,
+    },
+    styles: {
+      position: 'text-left'
     }
   },
   {
     data: {
       file: 'video',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
+      background: 'rgba(0, 0, 0, 0.87)',
+      position: 'text-right'
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
     }
   },
   {
     data: {
       file: 'audio',
-      zSpacing: 1
+      zSpacing: 1,
+    },
+    styles: {
     }
   }
 ]

@@ -1,20 +1,25 @@
 import {
   defineContentType,
-  stylesToString
-} from '@core/utils'
-import { Z_SPACING_SLIDES } from '@/constants'
+  stylesToString } from '@core/utils'
+import {
+  Z_SPACING_SLIDES } from '@/constants'
 
-function createFrame(content, { spacingSummary }) {
+function createFrame(content, { spacingSummary, position, bgColor }) {
   const transformZ = spacingSummary * Z_SPACING_SLIDES
 
-  const styles =
-    stylesToString({
-      transform: `translateZ(${transformZ}px)`
-    })
+  const stylesParams = {
+    transform: `translateZ(${transformZ}px)`
+  }
+
+  if (bgColor) {
+    stylesParams['background-color'] = bgColor
+  }
+
+  const styles = stylesToString(stylesParams)
 
   return `
     <div
-      class="frame"
+      class="frame ${position}"
       style="${styles}"
       data-zspace="${transformZ}"
       data-frame
@@ -59,14 +64,14 @@ function toImage({ options }) {
 
 function createTemplate(createFrame) {
   return function(slide, index, array) {
-    const { file, options } = slide.data
+    const { file, options = {} } = slide.data
+    const { background: bgColor = '', position = '' } = slide.styles
     const type = defineContentType(file)
 
     let spacingSummary = 0
     for (let i = 0; i <= index; i++) {
       spacingSummary += array[i].data.zSpacing
     }
-
 
     let template
     switch (type) {
@@ -77,17 +82,17 @@ function createTemplate(createFrame) {
         template = toMusic({ options })
         break
       case 'video':
-        template = toVideo({ options })
+        template = toVideo({ file, options })
         break
       case 'image':
-        template = toImage({ options })
+        template = toImage({ file, options })
         break
       default:
-        template = toText({})
+        template = toText({ options })
         break
     }
 
-    return createFrame(template, {spacingSummary})
+    return createFrame(template, { spacingSummary, position, bgColor })
   }
 }
 

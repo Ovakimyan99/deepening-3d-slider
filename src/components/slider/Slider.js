@@ -6,7 +6,6 @@ import { sliderMovevent } from '@/components/slider/slider.functions.js'
 export class Slider {
   constructor(options) {
     this.slidersData = options.slidersData || []
-    this.$root = null
   }
 
   toHTML() {
@@ -22,7 +21,7 @@ export class Slider {
 
   init() {
     this.frames = Array.from(this.$root.findAll('[data-frame]'))
-
+        .map(slide => $(slide))
 
     const movementListener = throttle(() => {
       sliderMovevent(this.frames)

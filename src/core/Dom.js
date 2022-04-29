@@ -1,3 +1,5 @@
+import { camelToDachCase } from '@core/utils'
+
 class Dom {
   constructor(selector) {
     this.$el = typeof selector === 'string'
@@ -33,6 +35,27 @@ class Dom {
       this.$el.appendChild(node)
     }
     return this
+  }
+
+  attr(data, value = null) {
+    if (value) {
+      this.$el.setAttribute(data, value)
+      return this
+    }
+    return this.$el.getAttribute(data)
+  }
+
+  css(styles = {}) {
+    for (const key in styles) {
+      if (Object.hasOwnProperty.call(styles, key)) {
+        this.$el.style[camelToDachCase(key)] = styles[key]
+
+        // если была передана пустышка
+        if (!styles[key] && styles[key] !== 0) {
+          delete this.$el.style[key]
+        }
+      }
+    }
   }
 }
 
