@@ -1,0 +1,11 @@
+@mixin miniRectangle($bg: #C4C4C4, $color: #E1E1E1) {
+  background-color: $bg;
+  color: $color;
+  padding: 12px 0;
+  min-width: 50px;
+  min-height: 40px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

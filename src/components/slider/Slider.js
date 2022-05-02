@@ -1,20 +1,31 @@
-import { $ } from '@core/Dom'
-import { throttle } from '@core/utils'
-import { sliderTemplate } from '@/components/slider/slider.template.js'
-import { sliderMovevent } from '@/components/slider/slider.functions.js'
+import {$} from '@core/Dom'
+import {throttle} from '@core/utils'
+import {sliderMovevent} from '@/components/slider/slider.functions.js'
+import {Slide} from '@/components/slide/Slide.js'
 
 export class Slider {
   constructor(options) {
     this.slidersData = options.slidersData || []
   }
 
-  toHTML() {
-    return sliderTemplate(this.slidersData)
-  }
-
   getRoot() {
     this.$root = $.create('div', 'gallery')
-    this.$root.html(this.toHTML())
+    let spacingSummary = 0
+
+    this.slidersData.forEach(slideData => {
+      spacingSummary += slideData.styles['zSpacing'] || 1
+
+      const slide = new Slide({
+        ...slideData,
+        styles: {
+          ...slideData.styles,
+          zSpacing: spacingSummary
+        }
+      })
+
+      this.$root.html(slide.toHTML())
+    })
+
 
     return this.$root
   }
@@ -23,9 +34,14 @@ export class Slider {
     this.frames = Array.from(this.$root.findAll('[data-frame]'))
         .map(slide => $(slide))
 
-    const movementListener = throttle(() => {
+    this.movementListener = throttle(() => {
       sliderMovevent(this.frames)
     }, 70)
-    window.addEventListener('scroll', movementListener)
+
+    window.addEventListener('scroll', this.movementListener)
+  }
+
+  destroy() {
+    window.removeEventListener('scroll', this.movementListener)
   }
 }

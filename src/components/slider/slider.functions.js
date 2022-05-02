@@ -38,7 +38,6 @@ export function sliderMovevent(frames, options = {}) {
 
     if (sliderHidingFactor(frameSpacing)) {
       activeIndex = index
-      // console.log('activeIndex: ', activeIndex)
       return
     }
   }

@@ -29,11 +29,16 @@ class Dom {
       node = node.$el
     }
 
-    if (Element.prototype.append) {
-      this.$el.append(node)
+    if (typeof node === 'string') {
+      this.$el.insertAdjacentHTML('beforeend', node)
     } else {
-      this.$el.appendChild(node)
+      this.$el.insertAdjacentElement('beforeend', node)
     }
+    return this
+  }
+
+  clear() {
+    this.$el.textContent = ''
     return this
   }
 

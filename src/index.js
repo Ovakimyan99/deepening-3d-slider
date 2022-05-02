@@ -1,109 +1,13 @@
-import { $ } from '@core/Dom'
-import { Slider } from '@/components/slider/Slider.js'
+import { Router } from '@core/routes/Router'
+import {SliderPage} from '@/pages/Slider.page'
+import {DashboardPage} from '@/pages/Dashboard.page'
 import '@/scss/main.scss'
+import '@/scss/dashboard/dashboard.scss'
 
-const slidersData = [
-  {
-    data: {
-      file: 'text',
-      zSpacing: 1,
-    },
-    styles: {
-      background: 'rgba(0, 0, 0, 0.87)',
-      position: 'text-right'
-    }
-  },
-  {
-    data: {
-      file: 'video',
-      zSpacing: 1,
-    },
-    styles: {
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 1,
-    },
-    styles: {
-      background: 'rgba(0, 0, 0, 0.87)',
-      position: 'text-left'
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 1,
-    },
-    styles: {
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 2,
-    },
-    styles: {
-      background: 'rgba(0, 0, 0, 0.87)',
-      position: 'text-left'
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 1,
-    },
-    styles: {
-      position: 'text-right'
+const router = new Router('#app', {
+  slider: SliderPage,
+  dashboard: DashboardPage
+})
+router.getRoot()
 
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 3,
-    },
-    styles: {
-      position: 'text-left'
-    }
-  },
-  {
-    data: {
-      file: 'video',
-      zSpacing: 1,
-    },
-    styles: {
-      background: 'rgba(0, 0, 0, 0.87)',
-      position: 'text-right'
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 1,
-    },
-    styles: {
-    }
-  },
-  {
-    data: {
-      file: 'audio',
-      zSpacing: 1,
-    },
-    styles: {
-    }
-  }
-]
-
-const app = $('#app')
-const container = $.create('div', 'container')
-const slider = new Slider({ slidersData })
-
-container.append(
-    slider.getRoot()
-)
-
-app.append(container)
-
-slider.init()
+router.init()
